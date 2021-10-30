@@ -1,5 +1,6 @@
 import './gameStyles/Yahtzee.css'
 import {Component} from 'react'
+import Dices from './gameDices/Dices';
 
 class Yahtzee extends Component{
 
@@ -7,7 +8,7 @@ class Yahtzee extends Component{
     return(
       <div className = "Yahtzee">
 
-        
+        <Dices />
 
       </div>
     )

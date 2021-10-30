@@ -1,0 +1,6 @@
+.DieDiv{
+    display: flex;
+    justify-content: space-around;
+    width: 65%;
+    margin: 1vh auto;
+}
