@@ -1,0 +1,27 @@
+html,
+body {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 40%;
+  height: 80%;
+  margin: 14vh auto;
+  border: 2px solid palegreen;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
