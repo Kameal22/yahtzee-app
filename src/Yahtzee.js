@@ -5,7 +5,11 @@ class Yahtzee extends Component{
 
   render(){
     return(
-      <div className = "Yahtzee"></div>
+      <div className = "Yahtzee">
+
+        
+
+      </div>
     )
   }
 }
