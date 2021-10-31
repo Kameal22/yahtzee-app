@@ -12,11 +12,12 @@
     font-size: 1.9em;
 }
 
-.DieSection h3{
-    border: 1px solid ivory;
+.DieSection button{
+    margin-top: 2vh;
+    margin-bottom: 2vh;
     background-color: rgba(65, 135, 201, 0.664);
     border-radius: 8px;
-    padding: 3px 3px;
+    padding: 4px 4px;
     font-size: 1.1em;
 }
 

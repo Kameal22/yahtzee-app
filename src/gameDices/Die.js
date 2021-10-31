@@ -5,7 +5,6 @@ class Die extends Component{
 
   handleChoice = () =>{
     this.props.choose(this.props.id)
-    
   }
 
   render(){
