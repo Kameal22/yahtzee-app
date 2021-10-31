@@ -3,11 +3,27 @@ import {Component} from 'react'
 
 class Die extends Component{
 
+  handleChoice = () =>{
+    this.props.choose(this.props.id)
+    
+  }
+
   render(){
+    const dieColor = {
+      color : 'ivory'
+    }
+    const chosenDieColor = {
+      color : 'rgb(44, 44, 44)'
+    }
+
     return(
       <div className = "DieDiv">
 
-        <i className = {`bi bi-dice-${this.props.face}`}></i>
+        <i
+          style = {this.props.isChosen ? chosenDieColor : dieColor}
+          onClick = {this.handleChoice}
+          className = {`bi bi-dice-${this.props.face}`}>
+        </i>
 
       </div>
     )
