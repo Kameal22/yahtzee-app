@@ -29,9 +29,6 @@ class Dices extends Component{
 // RANDOMIZE ONLY DICES THAT AREN'T CHOSEN !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   randomizeDices = () =>{
-
-    if(this.state.countPointsTime !== true){
-
     const randDices = this.state.dices.map(dice =>{
       let randInt = Math.floor(Math.random() * this.props.dieFaces.length) +1
       return {...dice, face : randInt}
@@ -41,9 +38,11 @@ class Dices extends Component{
       dices : randDices,
       numRolls : currLimit.numRolls -1
     }))
-  }}}
-
-  //SET COUNTPOINTSTIME TO TRUE ELSE
+  }else{
+    this.setState({
+      countPointsTime : true
+    })
+  }}
 
   chooseDice = (id) =>{
     const dicesAfterChose = this.state.dices.map(dice =>{
