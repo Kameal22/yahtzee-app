@@ -1,0 +1,18 @@
+.ruleDiv{
+    color: ivory;
+    display: flex;
+    justify-content: space-between;
+    height: 4vh;
+}
+
+.ruleDiv:hover{
+    cursor: pointer;
+}
+
+.ruleDescr{
+    margin-left: 1em;
+}
+
+.rulePoints{
+    margin-right: 1em;
+}

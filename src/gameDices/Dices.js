@@ -23,7 +23,10 @@ class Dices extends Component{
       ],
       numRolls : 2,
       countPointsTime : false,
-      gameStart : false
+      gameStart : false,
+      chosenDices : [
+        
+      ]
     }
   }
 
@@ -62,6 +65,7 @@ class Dices extends Component{
   }}
 
   chooseDice = (id) =>{
+    if(this.state.gameStart){
     const dicesAfterChose = this.state.dices.map(dice =>{
       if(dice.id === id){
         return {...dice, isChosen : !dice.isChosen}
@@ -72,6 +76,7 @@ class Dices extends Component{
     this.setState({
       dices : dicesAfterChose,
     })
+  }
   }
 
   render(){
