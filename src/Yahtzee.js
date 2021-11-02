@@ -8,22 +8,22 @@ class Yahtzee extends Component{
   constructor(props){
     super(props)
     this.state = {
-      chosenDices : []
+      importedDices : []
     }
   }
 
-  countPoints = (chosenDices) =>{
-      this.setState(state =>({
-        chosenDices : [...state, chosenDices]
-      }))
+  importDices = (importedDices) =>{
+      this.setState({
+        importedDices : importedDices
+      })
   }
 
   render(){
-    console.log(this.state.chosenDices)
+    console.log(this.state.importedDices)
     return(
       <div className = "Yahtzee">
 
-        <Dices exportChosen = {this.chosenDices} />
+        <Dices exportChosen = {this.importDices} />
 
         <Rules />
 

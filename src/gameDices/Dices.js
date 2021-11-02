@@ -24,6 +24,7 @@ class Dices extends Component{
       numRolls : 2,
       countPointsTime : false,
       gameStart : false,
+
     }
   }
 
@@ -47,6 +48,7 @@ class Dices extends Component{
       if(dice.isChosen === false){
         return {...dice, face : randInt}
       }
+      // Create scd array of chosen dices to summarize their score values
       return dice
     })
     this.setState(currLimit =>({
@@ -57,6 +59,7 @@ class Dices extends Component{
       this.setState({
         countPointsTime : true
       })
+      this.exportDices()
     }
   }}
 
@@ -75,7 +78,9 @@ class Dices extends Component{
   }
   }
 
-  //SOMEHOW USE FUNC PASSED IN PROPS FROM YAHTZEE TO PASS DICES AFTER LAST REROLL !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  exportDices = () =>{
+    this.props.exportChosen(this.state.dices)
+  }
 
   render(){
     if(this.state.gameStart === true){
