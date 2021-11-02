@@ -25,10 +25,11 @@ class Rules extends Component{
         ]
     }
 
-    basicRulesFunc = (rule, points) =>{
+    RulesFunc = (rule, points) =>{
         //which basic rule was clicked, and how many points should be added.
 
-        //RULE - ones, POINTS - map over (to be done) chosen dices array and count how many ones are there.
+
+        //RULE - ones, POINTS - map over dices after last roll and check if any of rule apply to them
     }
 
     constructor(props){
@@ -45,7 +46,7 @@ class Rules extends Component{
         <div className = "rulesDiv">
 
             {this.props.gameRules.map(rule =>{
-                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()}/>
+                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()} countPoints = {this.RulesFunc}/>
             })}
 
         </div>
@@ -53,7 +54,7 @@ class Rules extends Component{
         <div className = "moreRulesDiv">
 
             {this.props.moreRules.map(rule =>{
-                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()}/>
+                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()} countPoints = {this.RulesFunc}/>
             })}
 
         </div>
