@@ -22,7 +22,6 @@ class Dices extends Component{
         {face : 6, id : 6, isChosen : false}
       ],
       numRolls : 2,
-      countPointsTime : false,
       gameStart : false,
     }
   }
@@ -40,26 +39,25 @@ class Dices extends Component{
     })
   }
 
-  randomizeDices = () =>{
-    if(this.state.numRolls !== 0){
-    const randDices = this.state.dices.map(dice =>{
-      let randInt = Math.floor(Math.random() * this.props.dieFaces.length) +1
-      if(dice.isChosen === false){
-        return {...dice, face : randInt}
-      }
-      return dice
+  getRandomDice = () =>{
+    return Math.floor(Math.random() * this.props.dieFaces.length) +1
+  }
+
+  randomizeDice = () =>{
+      const rolledDices = this.state.dices.map(dice => dice.isChosen ? dice : {...dice,
+      face : this.getRandomDice()
     })
-    this.setState(currLimit =>({
-      dices : randDices,
-      numRolls : currLimit.numRolls -1
-    }))
-    if(this.state.numRolls === 1){
-      this.setState({
-        countPointsTime : true
-      })
-      this.exportDices()
+    const rollsLeft = this.state.numRolls -1;
+
+    if(rollsLeft === 0){
+      this.props.exportChosen(rolledDices.map(dice => dice.face));
     }
-  }}
+
+    this.setState({
+      dices : rolledDices,
+      numRolls : rollsLeft
+    })
+  }
 
   chooseDice = (id) =>{
     if(this.state.gameStart){
@@ -76,15 +74,8 @@ class Dices extends Component{
   }
   }
 
-  exportDices = () =>{
-    const testDice = this.state.dices.map(dice =>{
-      return{dice : dice.face}
-    })
-    console.log(testDice)
-  }
-
   render(){
-    if(this.state.gameStart === true){
+    if(this.state.gameStart){
     return(
       <div className = "DieSection">
         <h1>Yahtzee!</h1>
@@ -102,7 +93,9 @@ class Dices extends Component{
         })}
 
         </div>
-        <button onClick = {this.randomizeDices} >{`${this.state.numRolls} Roll left!`}</button>
+        <button disabled = {this.state.numRolls === 0}
+                onClick = {this.randomizeDice}>
+                {`${this.state.numRolls} rolls left`} </button>
       </div>
     )
     }else{

@@ -19,7 +19,7 @@ class Yahtzee extends Component{
   }
 
   render(){
-    // console.log(this.state.importedDices)
+    console.log(this.state.importedDices)
     return(
       <div className = "Yahtzee">
 
