@@ -24,7 +24,6 @@ class Dices extends Component{
       numRolls : 2,
       countPointsTime : false,
       gameStart : false,
-
     }
   }
 
@@ -48,7 +47,6 @@ class Dices extends Component{
       if(dice.isChosen === false){
         return {...dice, face : randInt}
       }
-      // Create scd array of chosen dices to summarize their score values
       return dice
     })
     this.setState(currLimit =>({
@@ -79,7 +77,10 @@ class Dices extends Component{
   }
 
   exportDices = () =>{
-    this.props.exportChosen(this.state.dices)
+    const testDice = this.state.dices.map(dice =>{
+      return{dice : dice.face}
+    })
+    console.log(testDice)
   }
 
   render(){
