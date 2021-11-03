@@ -25,20 +25,10 @@ class Rules extends Component{
         ]
     }
 
-    RulesFunc = (rule, points) =>{
-        //which basic rule was clicked, and how many points should be added.
-
-
-        //RULE - ones, POINTS - map over dices after last roll and check if any of rule apply to them
+    exportRule = (id) =>{
+        return id
     }
-
-    constructor(props){
-        super(props)
-        this.state = {
-            score : 0
-        }
-    }
-
+    
   render(){
     return(
       <div>
@@ -46,7 +36,12 @@ class Rules extends Component{
         <div className = "rulesDiv">
 
             {this.props.gameRules.map(rule =>{
-                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()} countPoints = {this.RulesFunc}/>
+                return <Rule
+                rule = {rule.rule}
+                points = {rule.points} 
+                key = {uuidv4()} 
+                id = {rule.id} 
+                exportClickedRule = {this.props.exportBasic}/>
             })}
 
         </div>
@@ -54,12 +49,10 @@ class Rules extends Component{
         <div className = "moreRulesDiv">
 
             {this.props.moreRules.map(rule =>{
-                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()} countPoints = {this.RulesFunc}/>
+                return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()}/>
             })}
 
         </div>
-
-        <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
 
       </div>
     )

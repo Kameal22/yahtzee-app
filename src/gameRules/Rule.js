@@ -4,12 +4,12 @@ import {Component} from 'react'
 class Rule extends Component{
 
   handleClick = () =>{
-    this.props.countPoints(this.props.rule)
+    this.props.exportClickedRule(this.props.id)
   }
     
   render(){
     return(
-      <div className = "ruleDiv" onClick = {this.handleClick}>
+      <div onClick = {this.handleClick} className = "ruleDiv">
 
         <p className = "ruleDescr">{this.props.rule}</p>
 
