@@ -14,6 +14,8 @@ class Yahtzee extends Component{
     }
   }
 
+  //Try to let user count points at ANYTIME, so if he rolls 6 sixes at once he goes for it instead of clicking 2 times more.
+
   importDices = (dices) =>{
     this.setState({
       importedDices : dices
@@ -28,20 +30,20 @@ class Yahtzee extends Component{
         return(dice === clickedRule)
       })
       
-      this.setState({
-        score : dicesMatchingRule.length
-      })
+      let scoreSum = 0;
 
-      //Add multiplier for 2,3,4,5,6 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      for (let i = 0; i < dicesMatchingRule.length; i++) {
+          scoreSum += dicesMatchingRule[i];
+      }
+      this.setState({
+        score : scoreSum
+      })
     }
   }
 
   render(){
     console.log(this.state.score)
-    // const basicRules = Rules.defaultProps.gameRules
-
-    //Need to check which rule was clicked, and based on it's.. Let's say ID (5) return only dices bigger than this ID and count them up.
-
+   
     return(
       <div className = "Yahtzee">
 
