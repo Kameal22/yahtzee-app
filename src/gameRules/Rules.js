@@ -24,10 +24,6 @@ class Rules extends Component{
             {rule : 'Chance', points : 'Sum all dice'}
         ]
     }
-
-    exportRule = (id) =>{
-        return id
-    }
     
   render(){
     return(
