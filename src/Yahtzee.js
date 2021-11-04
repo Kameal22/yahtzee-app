@@ -22,22 +22,25 @@ class Yahtzee extends Component{
 
   returnDices = () =>{
     return this.state.importedDices.filter(dice =>{
-      return dice >= 5
+      console.log(dice >= 5)
     })
   }
 
   importClickedRule = (id) =>{
-    console.log(id)
+    if(this.state.importedDices.length === 6){
+      console.log(id)
+    }
   }
 
-  countBasicRulesPoints = (rule, dices) =>{
+  countBasicRulesPoints = () =>{
     // When certain rule is clicked, check it's ID. If ID === 3, use filter function on importedDices and filter only dices of value 3.
     // Count them up and summarize the score.
-
 
   }
 
   render(){
+    console.log(this.state.importedDices)
+    console.log(this.importClickedRule())
     // const basicRules = Rules.defaultProps.gameRules
 
     //Need to check which rule was clicked, and based on it's.. Let's say ID (5) return only dices bigger than this ID and count them up.
@@ -45,7 +48,7 @@ class Yahtzee extends Component{
     return(
       <div className = "Yahtzee">
 
-        <Dices exportChosen = {this.importDices} />
+        <Dices exportChosenDices = {this.importDices} />
 
         <Rules exportBasic = {this.importClickedRule}/>
 

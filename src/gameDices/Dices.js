@@ -50,7 +50,7 @@ class Dices extends Component{
     const rollsLeft = this.state.numRolls -1;
 
     if(rollsLeft === 0){
-      this.props.exportChosen(rolledDices.map(dice => dice.face));
+      this.props.exportChosenDices(rolledDices.map(dice => dice.face));
     }
 
     this.setState({
