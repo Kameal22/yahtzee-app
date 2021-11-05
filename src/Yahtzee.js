@@ -14,7 +14,7 @@ class Yahtzee extends Component{
     }
   }
 
-  //Try to let user count points at ANYTIME, so if he rolls 6 sixes at once he goes for it instead of clicking 2 times more.
+  //TODO - Restart game after choosing a rule and getting points.
 
   importDices = (dices) =>{
     this.setState({
