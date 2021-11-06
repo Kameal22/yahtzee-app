@@ -1,0 +1,29 @@
+.DieSection {
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  color: ivory;
+}
+
+.DieSection button {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  background-color: rgba(65, 135, 201, 0.664);
+  border-radius: 8px;
+  padding: 4px 4px;
+  font-size: 1.1em;
+}
+
+.DieSection h1 {
+  letter-spacing: 1px;
+  font-size: 1.9em;
+}
+
+.RulesSection h2 {
+  color: ivory;
+  width: 50%;
+  margin: 2vh auto;
+  text-align: center;
+}

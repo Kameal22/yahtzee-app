@@ -8,50 +8,70 @@ class Yahtzee extends Component{
   constructor(props){
     super(props)
     this.state = {
-      importedDices : [],
-      importedBasicRules : [],
+      dices : [
+        {face : 1, id : 1, isChosen : false},
+        {face : 2, id : 2, isChosen : false},
+        {face : 3, id : 3, isChosen : false},
+        {face : 4, id : 4, isChosen : false},
+        {face : 5, id : 5, isChosen : false},
+        {face : 6, id : 6, isChosen : false}
+      ],
+      numRolls : 2,
+      gameStart : false,
+      numRolls : 2,
       score : 0
     }
   }
 
-  //TODO - Restart game after choosing a rule and getting points.
+  getRandomDice = () =>{
+    return Math.floor(Math.random() * this.state.dices.length) +1
+  }
 
-  importDices = (dices) =>{
+  gameStart = () =>{
+    const randomizedDices = this.state.dices.map(dice => dice.isChosen ? dice : {...dice,
+    face : this.getRandomDice()})
     this.setState({
-      importedDices : dices
+      dices : randomizedDices,
     })
   }
-  
-  importClickedRule = (id) =>{
-    let clickedRule = id
 
-    if(this.state.importedDices.length === 6){
-      const dicesMatchingRule = this.state.importedDices.filter(dice =>{
-        return(dice === clickedRule)
-      })
-      
-      let scoreSum = 0;
+  //Set num Rolls to 2 after initial start-game Roll
 
-      for (let i = 0; i < dicesMatchingRule.length; i++) {
-          scoreSum += dicesMatchingRule[i];
+  chooseDie = (id) =>{
+    if(this.state.gameStart){
+    const dicesAfterChose = this.state.dices.map(dice =>{
+      if(dice.id === id){
+        return {...dice, isChosen : !dice.isChosen}
       }
-      this.setState({
-        score : scoreSum
-      })
-    }
-  }
+      return dice
+    })
+
+    this.setState({
+      dices : dicesAfterChose,
+    })
+  }}
 
   render(){
-    console.log(this.state.score)
-   
+    const {dices} = this.state
+
     return(
       <div className = "Yahtzee">
 
-        <Dices exportChosenDices = {this.importDices} />
+        <div className = "DieSection">
+          <h1>Yahtzee!</h1>
 
-        <Rules exportBasic = {this.importClickedRule} />
+          <Dices dicesToExport = {dices} chooseDie = {this.chooseDie} />
 
-        <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
+          <button onClick = {() =>{this.setState({gameStart : true}); this.gameStart()}}>Start the game</button>
+          
+        </div>
+
+        <div className = "RulesSection">
+          <h2>Game rules</h2>
+          <Rules exportBasic = {this.importClickedRule} />
+
+          <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
+        </div>
 
       </div>
     )

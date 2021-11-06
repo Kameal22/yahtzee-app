@@ -1,32 +1,5 @@
-.DieSection{
-    border-bottom: 1px solid white;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    align-items: center;
-    color: ivory;
-}
-
-.DieSection h1{
-    letter-spacing: 1px;
-    font-size: 1.9em;
-}
-
-.DieSection button{
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    background-color: rgba(65, 135, 201, 0.664);
-    border-radius: 8px;
-    padding: 4px 4px;
-    font-size: 1.1em;
-}
-
-.DieSection h3:hover{
-    cursor: pointer;
-}
-
-.DieDiv{
-    width: 80%;
-    display: flex;
-    justify-content: space-around;
+.DicesDiv {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
 }

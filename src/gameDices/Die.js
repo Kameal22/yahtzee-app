@@ -4,7 +4,7 @@ import {Component} from 'react'
 class Die extends Component{
 
   handleChoice = () =>{
-    this.props.choose(this.props.id)
+    this.props.chooseDie(this.props.id)
   }
 
   render(){

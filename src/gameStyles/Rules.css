@@ -1,17 +1,17 @@
-.rulesDiv{
-    padding: 8px 12px;
+.rulesDiv {
+  padding: 1px 12px;
 }
 
-.moreRulesDiv{
-    padding: 8px 12px;
+.moreRulesDiv {
+  padding: 1px 12px;
 }
 
-.score{
-    color: ivory;
-    text-align: center;
-    width: 50%;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-left: auto;
-    margin-right: auto;
+.score {
+  color: ivory;
+  text-align: center;
+  width: 50%;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
 }
