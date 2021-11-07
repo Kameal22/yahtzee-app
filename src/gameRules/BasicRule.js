@@ -1,7 +1,7 @@
 import '../gameStyles/Rule.css'
 import {Component} from 'react'
 
-class Rule extends Component{
+class BasicRule extends Component{
 
   handleClick = () =>{
     this.props.scoreBasic(this.props.id)
@@ -18,7 +18,7 @@ class Rule extends Component{
     return(
       <div
       style = {this.props.scored ? scored : notScored}
-      onClick = {this.props.scored ? null : this.handleClick }
+      onClick = {this.props.scored ? null : this.handleClick}
       className = "ruleDiv">
 
         <p className = "ruleDescr">{this.props.rule}</p>
@@ -30,4 +30,4 @@ class Rule extends Component{
   }
 }
 
-export default Rule;
+export default BasicRule;

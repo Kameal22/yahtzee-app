@@ -1,7 +1,8 @@
 import './gameStyles/Yahtzee.css'
 import {Component} from 'react'
 import Dices from './gameDices/Dices';
-import Rules from './gameRules/Rules';
+import Rules from './gameRules/BasicRules';
+import AdvancedRules from './gameRules/AdvancedRules';
 
 class Yahtzee extends Component{
 
@@ -25,19 +26,21 @@ class Yahtzee extends Component{
         {rule : 'sixes', points : '6 points per 6', id : 6, scored : false}
     ],
     advancedRules : [
-        {rule : 'Three of kind', points : 'Sum all dice if 3 are the same'},
-        {rule : 'Four of kind', points : 'Sum all dice if 4 are the same'},
-        {rule : 'Full house', points : ' 25 points for a full house'},
-        {rule : 'Small straight', points : '30 points for a small straight'},
-        {rule : 'Large straight', points : '40 points for a large straight'},
-        {rule : 'Yahtzee', points : '50 points for yahtzee'},
-        {rule : 'Chance', points : 'Sum all dice'}
+        {rule : 'Three of kind', points : 'Sum all dice if 3 are the same', id : 1, scored : false},
+        {rule : 'Four of kind', points : 'Sum all dice if 4 are the same', id : 2, scored : false},
+        {rule : 'Full house', points : ' 25 points for a full house', id : 3, scored : false},
+        {rule : 'Small straight', points : '30 points for a small straight', id : 4, scored : false},
+        {rule : 'Large straight', points : '40 points for a large straight', id : 5, scored : false},
+        {rule : 'Yahtzee', points : '50 points for yahtzee', id : 6, scored : false},
+        {rule : 'Chance', points : 'Sum all dice', id : 7, scored : false}
     ],
       gameStart : false,
       numRolls : 3,
       score : 0
     }
   }
+
+  //Advanced rules are calling for this.ScoreBasic func even tho I don't pass it in props to them in Rules.js WTF?
 
   chooseDie = (id) =>{
     if(this.state.gameStart){
@@ -92,7 +95,8 @@ scoreBasicRule = (id) =>{
   }))
 }}
 
-resetOnScore = (id) =>{
+resetOnBasicScore = (id) =>{
+  if(this.state.gameStart){
   let scoredRule = id
 
   const rulesAfterScoring = this.state.basicRules.map(rule =>{
@@ -108,10 +112,8 @@ resetOnScore = (id) =>{
       basicRules : rulesAfterScoring,
       numRolls : 3,
       dices : dicesReset,
-    })
-    // RANDOMIZE DICES HERE AGAIN
-    
-}
+    })  
+}}
 
   render(){
     const {dices} = this.state
@@ -136,9 +138,11 @@ resetOnScore = (id) =>{
 
             <Rules
             basicRules = {basicRules} 
-            advancedRules = {advancedRules} 
             scoreBasicRule = {this.scoreBasicRule}
             resetOnScore = {this.resetOnScore}/>
+
+            <AdvancedRules
+            advancedRules = {advancedRules}/>
   
             <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
           </div>
