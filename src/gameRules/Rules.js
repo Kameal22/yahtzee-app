@@ -4,26 +4,6 @@ import Rule from './Rule';
 import { v4 as uuidv4 } from 'uuid';
 
 class Rules extends Component{
-
-    static defaultProps = {
-        gameRules : [
-            {rule : 'ones', points : '1 point per 1', id : 1},
-            {rule : 'twos', points : '2 points per 2', id : 2},
-            {rule : 'threes', points : '3 points per 3', id : 3},
-            {rule : 'fours', points : '4 points per 4', id : 4},
-            {rule : 'fives', points : '5 points per 5', id : 5},
-            {rule : 'sixes', points : '6 points per 6', id : 6}
-        ],
-        moreRules : [
-            {rule : 'Three of kind', points : 'Sum all dice if 3 are the same'},
-            {rule : 'Four of kind', points : 'Sum all dice if 4 are the same'},
-            {rule : 'Full house', points : ' 25 points for a full house'},
-            {rule : 'Small straight', points : '30 points for a small straight'},
-            {rule : 'Large straight', points : '40 points for a large straight'},
-            {rule : 'Yahtzee', points : '50 points for yahtzee'},
-            {rule : 'Chance', points : 'Sum all dice'}
-        ]
-    }
     
   render(){
     return(
@@ -31,20 +11,23 @@ class Rules extends Component{
 
         <div className = "rulesDiv">
 
-            {this.props.gameRules.map(rule =>{
+            {this.props.basicRules.map(rule =>{
                 return <Rule
                 rule = {rule.rule}
                 points = {rule.points} 
                 key = {uuidv4()} 
                 id = {rule.id} 
-                exportClickedRule = {this.props.exportBasic}/>
+                scored = {rule.scored}
+                scoreBasic = {this.props.scoreBasicRule}
+                resetOnScore = {this.props.resetOnScore}
+                />
             })}
 
         </div>
 
         <div className = "moreRulesDiv">
 
-            {this.props.moreRules.map(rule =>{
+            {this.props.advancedRules.map(rule =>{
                 return <Rule rule = {rule.rule} points = {rule.points} key = {uuidv4()}/>
             })}
 

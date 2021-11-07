@@ -16,6 +16,23 @@ class Yahtzee extends Component{
         {face : 5, id : 5, isChosen : false},
         {face : 6, id : 6, isChosen : false}
       ],
+      basicRules : [
+        {rule : 'ones', points : '1 point per 1', id : 1, scored : false},
+        {rule : 'twos', points : '2 points per 2', id : 2, scored : false},
+        {rule : 'threes', points : '3 points per 3', id : 3, scored : false},
+        {rule : 'fours', points : '4 points per 4', id : 4, scored : false},
+        {rule : 'fives', points : '5 points per 5', id : 5, scored : false},
+        {rule : 'sixes', points : '6 points per 6', id : 6, scored : false}
+    ],
+    advancedRules : [
+        {rule : 'Three of kind', points : 'Sum all dice if 3 are the same'},
+        {rule : 'Four of kind', points : 'Sum all dice if 4 are the same'},
+        {rule : 'Full house', points : ' 25 points for a full house'},
+        {rule : 'Small straight', points : '30 points for a small straight'},
+        {rule : 'Large straight', points : '40 points for a large straight'},
+        {rule : 'Yahtzee', points : '50 points for yahtzee'},
+        {rule : 'Chance', points : 'Sum all dice'}
+    ],
       gameStart : false,
       numRolls : 3,
       score : 0
@@ -71,13 +88,35 @@ scoreBasicRule = (id) =>{
   }
 
   this.setState(currentScore =>({
-    score : currentScore.score + scoreSum
+    score : currentScore.score + scoreSum,
   }))
-}
+}}
+
+resetOnScore = (id) =>{
+  let scoredRule = id
+
+  const rulesAfterScoring = this.state.basicRules.map(rule =>{
+    if(rule.id === scoredRule){
+    return {...rule, scored : true}
+  }
+    return rule}
+  )
+  const dicesReset = this.state.dices.map(dice =>{
+    return {...dice, face : this.getRandomDice(), isChosen : false}
+  })
+    this.setState({
+      basicRules : rulesAfterScoring,
+      numRolls : 3,
+      dices : dicesReset,
+    })
+    // RANDOMIZE DICES HERE AGAIN
+    
 }
 
   render(){
     const {dices} = this.state
+    const {basicRules} = this.state
+    const {advancedRules} = this.state
       return(
         <div className = "Yahtzee">
   
@@ -95,7 +134,11 @@ scoreBasicRule = (id) =>{
           <div className = "RulesSection">
             <h2>Game rules</h2>
 
-            <Rules exportBasic = {this.scoreBasicRule} resetGame = {this.resetAfterScoring}/>
+            <Rules
+            basicRules = {basicRules} 
+            advancedRules = {advancedRules} 
+            scoreBasicRule = {this.scoreBasicRule}
+            resetOnScore = {this.resetOnScore}/>
   
             <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
           </div>
