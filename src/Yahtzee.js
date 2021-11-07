@@ -139,7 +139,7 @@ resetOnBasicScore = (id) =>{
             <Rules
             basicRules = {basicRules} 
             scoreBasicRule = {this.scoreBasicRule}
-            resetOnScore = {this.resetOnScore}/>
+            resetOnScore = {this.resetOnBasicScore}/>
 
             <AdvancedRules
             advancedRules = {advancedRules}/>
