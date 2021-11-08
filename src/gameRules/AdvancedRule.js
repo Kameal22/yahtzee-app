@@ -4,7 +4,7 @@ import {Component} from 'react'
 class AdvancedRule extends Component{
 
   handleClick = () =>{
-
+    this.props.scoreAdvanced(this.props.id)
   }
     
   render(){

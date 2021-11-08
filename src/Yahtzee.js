@@ -24,8 +24,8 @@ class Yahtzee extends Component{
         {rule : 'fours', points : '4 points per 4', id : 4, scored : false},
         {rule : 'fives', points : '5 points per 5', id : 5, scored : false},
         {rule : 'sixes', points : '6 points per 6', id : 6, scored : false}
-    ],
-    advancedRules : [
+      ],
+      advancedRules : [
         {rule : 'Three of kind', points : 'Sum all dice if 3 are the same', id : 1, scored : false},
         {rule : 'Four of kind', points : 'Sum all dice if 4 are the same', id : 2, scored : false},
         {rule : 'Full house', points : ' 25 points for a full house', id : 3, scored : false},
@@ -33,14 +33,12 @@ class Yahtzee extends Component{
         {rule : 'Large straight', points : '40 points for a large straight', id : 5, scored : false},
         {rule : 'Yahtzee', points : '50 points for yahtzee', id : 6, scored : false},
         {rule : 'Chance', points : 'Sum all dice', id : 7, scored : false}
-    ],
-      gameStart : false,
-      numRolls : 3,
-      score : 0
+      ],
+        gameStart : false,
+        numRolls : 3,
+        score : 0
+      }
     }
-  }
-
-  //Advanced rules are calling for this.ScoreBasic func even tho I don't pass it in props to them in Rules.js WTF?
 
   chooseDie = (id) =>{
     if(this.state.gameStart){
@@ -110,10 +108,43 @@ resetOnBasicScore = (id) =>{
   })
     this.setState({
       basicRules : rulesAfterScoring,
-      numRolls : 3,
+      numRolls : 2,
       dices : dicesReset,
     })  
 }}
+
+scoreAdvancedRule = (rule) =>{
+  if(this.state.gameStart){
+    let clickedRule = rule
+    switch (rule){
+      case 1 :
+        const dieFaces = this.state.dices.map(dice =>{
+          return(dice.face)
+        })
+        
+        break
+      case 2 : 
+        console.log(rule)
+        break
+      case 3 : 
+        console.log(rule)
+        break
+      case 4 : 
+        console.log(rule)
+        break
+      case 5 : 
+        console.log(rule)
+        break
+      case 6 : 
+        console.log(rule)
+        break
+      case 7 : 
+        console.log(rule)
+        break
+      default : console.log("test")            
+    }
+  }
+}
 
   render(){
     const {dices} = this.state
@@ -124,13 +155,11 @@ resetOnBasicScore = (id) =>{
   
           <div className = "DieSection">
             <h1>Yahtzee!</h1>
-  
             <Dices dicesToExport = {dices} chooseDie = {this.chooseDie} />
   
             <button disabled = {this.state.numRolls === 0}
             onClick = {() =>{this.setState({gameStart : true}); this.randomizeDice()}}>
-            {this.state.gameStart ? `${this.state.numRolls} rolls left` : 'Start The game'} </button>
-            
+            {this.state.gameStart ? `${this.state.numRolls} rolls left` : 'Start The game'} </button> 
           </div>
   
           <div className = "RulesSection">
@@ -142,7 +171,8 @@ resetOnBasicScore = (id) =>{
             resetOnScore = {this.resetOnBasicScore}/>
 
             <AdvancedRules
-            advancedRules = {advancedRules}/>
+            advancedRules = {advancedRules}
+            scoreAdvancedRule = {this.scoreAdvancedRule}/>
   
             <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
           </div>

@@ -19,6 +19,7 @@ class AdvancedRules extends Component{
                 id = {rule.id} 
                 scored = {rule.scored}
                 resetOnScore = {this.props.resetOnScore}
+                scoreAdvanced = {this.props.scoreAdvancedRule}
                 />
             })}
 
