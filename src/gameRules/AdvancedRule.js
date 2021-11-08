@@ -5,6 +5,7 @@ class AdvancedRule extends Component{
 
   handleClick = () =>{
     this.props.scoreAdvanced(this.props.id)
+    this.props.resetOnScore(this.props.id)
   }
     
   render(){

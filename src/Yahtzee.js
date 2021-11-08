@@ -113,18 +113,74 @@ resetOnBasicScore = (id) =>{
     })  
 }}
 
+resetOnAdvancedScore = (id) =>{
+  if(this.state.gameStart){
+    let scoredRule = id
+  
+    const rulesAfterScoring = this.state.advancedRules.map(rule =>{
+      if(rule.id === scoredRule){
+      return {...rule, scored : true}
+    }
+      return rule}
+    )
+    const dicesReset = this.state.dices.map(dice =>{
+      return {...dice, face : this.getRandomDice(), isChosen : false}
+    })
+      this.setState({
+        advancedRules : rulesAfterScoring,
+        numRolls : 2,
+        dices : dicesReset,
+      })  
+}}
+
 scoreAdvancedRule = (rule) =>{
   if(this.state.gameStart){
-    let clickedRule = rule
+    const dieFaces = this.state.dices.map(dice =>{
+      return(dice.face)
+    })
+    let score = 0; 
     switch (rule){
       case 1 :
-        const dieFaces = this.state.dices.map(dice =>{
-          return(dice.face)
-        })
-        
+        let threeTheSame = {}
+
+        for(let i = 0; i < dieFaces.length; i++){ 
+          if (threeTheSame[dieFaces[i]]){
+          threeTheSame[dieFaces[i]] += 1
+          } else {
+          threeTheSame[dieFaces[i]] = 1
+          }
+         } 
+         for (let die in dieFaces){
+             if (threeTheSame[die] >= 3){
+                 for(let i = 0; i < dieFaces.length; i++){
+                  score += dieFaces[i]
+                 }
+             }
+         }
+         this.setState(currentScore =>({
+          score : currentScore.score + score
+        }))
         break
       case 2 : 
-        console.log(rule)
+      let fourTheSame = {}
+
+      for(let i = 0; i < dieFaces.length; i++){ 
+        if (fourTheSame[dieFaces[i]]){
+        fourTheSame[dieFaces[i]] += 1
+        } else {
+        fourTheSame[dieFaces[i]] = 1
+        }
+       }
+       for (let die in dieFaces){
+           if (fourTheSame[die] >= 4){
+               for(let i = 0; i < dieFaces.length; i++){
+                score += dieFaces[i]
+               }
+           }
+       }
+       this.setState(currentScore =>({
+        score : currentScore.score + score
+      }))
         break
       case 3 : 
         console.log(rule)
@@ -139,7 +195,12 @@ scoreAdvancedRule = (rule) =>{
         console.log(rule)
         break
       case 7 : 
-        console.log(rule)
+        for(let i = 0; i < dieFaces.length; i++){
+          score += dieFaces[i]
+        }
+        this.setState(currentScore =>({
+          score : currentScore.score + score
+        }))
         break
       default : console.log("test")            
     }
@@ -172,7 +233,8 @@ scoreAdvancedRule = (rule) =>{
 
             <AdvancedRules
             advancedRules = {advancedRules}
-            scoreAdvancedRule = {this.scoreAdvancedRule}/>
+            scoreAdvancedRule = {this.scoreAdvancedRule}
+            resetOnScore = {this.resetOnAdvancedScore}/>
   
             <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
           </div>
