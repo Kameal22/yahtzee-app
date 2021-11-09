@@ -14,8 +14,7 @@ class Yahtzee extends Component{
         {face : 2, id : 2, isChosen : false},
         {face : 3, id : 3, isChosen : false},
         {face : 4, id : 4, isChosen : false},
-        {face : 5, id : 5, isChosen : false},
-        {face : 6, id : 6, isChosen : false}
+        {face : 5, id : 5, isChosen : false}
       ],
       basicRules : [
         {rule : 'ones', points : '1 point per 1', id : 1, scored : false},
@@ -55,7 +54,7 @@ class Yahtzee extends Component{
   }}
 
   getRandomDice = () =>{
-    return Math.floor(Math.random() * this.state.dices.length) +1
+    return Math.floor(Math.random() * 6) +1
   }
 
   randomizeDice = () =>{
@@ -141,46 +140,39 @@ scoreAdvancedRule = (rule) =>{
     let score = 0; 
     switch (rule){
       case 1 :
-        let threeTheSame = {}
+          function findThrees(array){
+          const count = {}
+          const result = []
+          let contains = false
 
-        for(let i = 0; i < dieFaces.length; i++){ 
-          if (threeTheSame[dieFaces[i]]){
-          threeTheSame[dieFaces[i]] += 1
-          } else {
-          threeTheSame[dieFaces[i]] = 1
+          array.forEach(item => {
+              if (count[item]) {
+                count[item] +=1
+                return
+              }
+              count[item] = 1
+          })
+
+          for (let prop in count){
+              if (count[prop] >=3){
+                  result.push(prop)
+                  contains = true
+              }
           }
-         } 
-         for (let die in dieFaces){
-             if (threeTheSame[die] >= 3){
-                 for(let i = 0; i < dieFaces.length; i++){
-                  score += dieFaces[i]
-                 }
-             }
-         }
-         this.setState(currentScore =>({
-          score : currentScore.score + score
-        }))
+          if(contains){
+            for(let i = 0; i < dieFaces.length; i++){
+              score += dieFaces[i]
+            }
+          }
+          return result;
+          }
+          findThrees(dieFaces)
+          this.setState(currentScore =>({
+            score : currentScore.score + score
+          }))
         break
       case 2 : 
-      let fourTheSame = {}
-
-      for(let i = 0; i < dieFaces.length; i++){ 
-        if (fourTheSame[dieFaces[i]]){
-        fourTheSame[dieFaces[i]] += 1
-        } else {
-        fourTheSame[dieFaces[i]] = 1
-        }
-       }
-       for (let die in dieFaces){
-           if (fourTheSame[die] >= 4){
-               for(let i = 0; i < dieFaces.length; i++){
-                score += dieFaces[i]
-               }
-           }
-       }
-       this.setState(currentScore =>({
-        score : currentScore.score + score
-      }))
+        console.log(rule)
         break
       case 3 : 
         console.log(rule)
@@ -192,7 +184,12 @@ scoreAdvancedRule = (rule) =>{
         console.log(rule)
         break
       case 6 : 
-        console.log(rule)
+      const allEqual = arr => arr.every( v => v === arr[0] )
+        if(allEqual( dieFaces )){
+          this.setState(currentScore =>({
+            score : currentScore.score + 50
+          }))
+        }
         break
       case 7 : 
         for(let i = 0; i < dieFaces.length; i++){
