@@ -172,16 +172,55 @@ scoreAdvancedRule = (rule) =>{
           }))
         break
       case 2 : 
-        console.log(rule)
+      function findFours(array){
+        const count = {}
+        const result = []
+        let contains = false
+
+        array.forEach(item => {
+            if (count[item]) {
+              count[item] +=1
+              return
+            }
+            count[item] = 1
+        })
+
+        for (let prop in count){
+            if (count[prop] >=4){
+                result.push(prop)
+                contains = true
+            }
+        }
+        if(contains){
+          for(let i = 0; i < dieFaces.length; i++){
+            score += dieFaces[i]
+          }
+        }
+        return result;
+        }
+        findFours(dieFaces)
+        this.setState(currentScore =>({
+          score : currentScore.score + score
+        }))
         break
       case 3 : 
         console.log(rule)
         break
       case 4 : 
-        console.log(rule)
+      const smallStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
+        if(smallStraigth && dieFaces.indexOf(6) === -1){
+          this.setState(currentScore =>({
+            score : currentScore.score + 30
+          }))
+        }
         break
       case 5 : 
-        console.log(rule)
+      const largeStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
+      if(largeStraigth && dieFaces.indexOf(1) === -1){
+        this.setState(currentScore =>({
+          score : currentScore.score + 40
+        }))
+      }
         break
       case 6 : 
       const allEqual = arr => arr.every( v => v === arr[0] )
