@@ -1,10 +1,11 @@
 import '../gameStyles/Rule.css'
 import {Component} from 'react'
 
-class AdvancedRule extends Component{
+class Rule extends Component{
 
   handleClick = () =>{
-    this.props.scoreAdvanced(this.props.id)
+    if(this.props.id <= 6){this.props.scoreBasic(this.props.id)}
+    else{this.props.scoreAdvanced(this.props.id)}
     this.props.resetOnScore(this.props.id)
   }
     
@@ -30,4 +31,4 @@ class AdvancedRule extends Component{
   }
 }
 
-export default AdvancedRule;
+export default Rule;

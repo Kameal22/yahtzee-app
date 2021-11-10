@@ -1,9 +1,9 @@
 import '../gameStyles/Rules.css'
 import {Component} from 'react'
-import AdvancedRule from './AdvancedRule';
+import Rule from './Rule';
 import { v4 as uuidv4 } from 'uuid';
 
-class AdvancedRules extends Component{
+class Rules extends Component{
     
   render(){
     return(
@@ -11,15 +11,16 @@ class AdvancedRules extends Component{
 
         <div className = "rulesDiv">
 
-            {this.props.advancedRules.map(rule =>{
-                return <AdvancedRule
+            {this.props.rules.map(rule =>{
+                return <Rule
                 rule = {rule.rule}
                 points = {rule.points} 
                 key = {uuidv4()} 
                 id = {rule.id} 
                 scored = {rule.scored}
-                resetOnScore = {this.props.resetOnScore}
+                scoreBasic = {this.props.scoreBasicRule}
                 scoreAdvanced = {this.props.scoreAdvancedRule}
+                resetOnScore = {this.props.resetOnScore}
                 />
             })}
 
@@ -30,4 +31,4 @@ class AdvancedRules extends Component{
   }
 }
 
-export default AdvancedRules;
+export default Rules;

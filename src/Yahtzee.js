@@ -1,8 +1,7 @@
 import './gameStyles/Yahtzee.css'
 import {Component} from 'react'
 import Dices from './gameDices/Dices';
-import Rules from './gameRules/BasicRules';
-import AdvancedRules from './gameRules/AdvancedRules';
+import Rules from './gameRules/Rules';
 
 class Yahtzee extends Component{
 
@@ -16,22 +15,20 @@ class Yahtzee extends Component{
         {face : 4, id : 4, isChosen : false},
         {face : 5, id : 5, isChosen : false}
       ],
-      basicRules : [
+      rules : [
         {rule : 'ones', points : '1 point per 1', id : 1, scored : false},
         {rule : 'twos', points : '2 points per 2', id : 2, scored : false},
         {rule : 'threes', points : '3 points per 3', id : 3, scored : false},
         {rule : 'fours', points : '4 points per 4', id : 4, scored : false},
         {rule : 'fives', points : '5 points per 5', id : 5, scored : false},
-        {rule : 'sixes', points : '6 points per 6', id : 6, scored : false}
-      ],
-      advancedRules : [
-        {rule : 'Three of kind', points : 'Sum all dice if 3 are the same', id : 1, scored : false},
-        {rule : 'Four of kind', points : 'Sum all dice if 4 are the same', id : 2, scored : false},
-        {rule : 'Full house', points : ' 25 points for a full house', id : 3, scored : false},
-        {rule : 'Small straight', points : '30 points for a small straight', id : 4, scored : false},
-        {rule : 'Large straight', points : '40 points for a large straight', id : 5, scored : false},
-        {rule : 'Yahtzee', points : '50 points for yahtzee', id : 6, scored : false},
-        {rule : 'Chance', points : 'Sum all dice', id : 7, scored : false}
+        {rule : 'sixes', points : '6 points per 6', id : 6, scored : false},
+        {rule : 'Three of kind', points : 'Sum all dice if 3 are the same', id : 7, scored : false},
+        {rule : 'Four of kind', points : 'Sum all dice if 4 are the same', id : 8, scored : false},
+        {rule : 'Full house', points : ' 25 points for a full house', id : 9, scored : false},
+        {rule : 'Small straight', points : '30 points for a small straight', id : 10, scored : false},
+        {rule : 'Large straight', points : '40 points for a large straight', id : 11, scored : false},
+        {rule : 'Yahtzee', points : '50 points for yahtzee', id : 12, scored : false},
+        {rule : 'Chance', points : 'Sum all dice', id : 13, scored : false}
       ],
         gameStart : false,
         numRolls : 3,
@@ -93,11 +90,19 @@ scoreBasicRule = (id) =>{
   }))
 }}
 
-resetOnBasicScore = (id) =>{
+// scoreAdvancedRule = (id) =>{
+//   if(this.state.gameStart){
+//     let clickedRule = id
+    
+//     console.log(clickedRule)
+//   }
+// }
+
+resetOnScore = (id) =>{
   if(this.state.gameStart){
   let scoredRule = id
 
-  const rulesAfterScoring = this.state.basicRules.map(rule =>{
+  const rulesAfterScoring = this.state.rules.map(rule =>{
     if(rule.id === scoredRule){
     return {...rule, scored : true}
   }
@@ -107,30 +112,10 @@ resetOnBasicScore = (id) =>{
     return {...dice, face : this.getRandomDice(), isChosen : false}
   })
     this.setState({
-      basicRules : rulesAfterScoring,
+      rules : rulesAfterScoring,
       numRolls : 2,
       dices : dicesReset,
     })  
-}}
-
-resetOnAdvancedScore = (id) =>{
-  if(this.state.gameStart){
-    let scoredRule = id
-  
-    const rulesAfterScoring = this.state.advancedRules.map(rule =>{
-      if(rule.id === scoredRule){
-      return {...rule, scored : true}
-    }
-      return rule}
-    )
-    const dicesReset = this.state.dices.map(dice =>{
-      return {...dice, face : this.getRandomDice(), isChosen : false}
-    })
-      this.setState({
-        advancedRules : rulesAfterScoring,
-        numRolls : 2,
-        dices : dicesReset,
-      })  
 }}
 
 scoreAdvancedRule = (rule) =>{
@@ -140,7 +125,7 @@ scoreAdvancedRule = (rule) =>{
     })
     let score = 0; 
     switch (rule){
-      case 1 :
+      case 7 :
           function findThrees(array){
           const count = {}
           const result = []
@@ -172,7 +157,7 @@ scoreAdvancedRule = (rule) =>{
             score : currentScore.score + score
           }))
         break
-      case 2 : 
+      case 8 : 
       function findFours(array){
         const count = {}
         const result = []
@@ -204,7 +189,7 @@ scoreAdvancedRule = (rule) =>{
           score : currentScore.score + score
         }))
         break
-      case 3 :
+      case 9 :
       let fullHouseScore = 0;  
       function hasDuplicates(array) {
         return (new Set(array)).size !== array.length;
@@ -238,7 +223,7 @@ scoreAdvancedRule = (rule) =>{
           score : currentScore.score + fullHouseScore
         }))
       break
-      case 4 : 
+      case 10 : 
       const smallStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
         if(smallStraigth && dieFaces.indexOf(6) === -1){
           this.setState(currentScore =>({
@@ -246,7 +231,7 @@ scoreAdvancedRule = (rule) =>{
           }))
         }
         break
-      case 5 : 
+      case 11 : 
       const largeStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
       if(largeStraigth && dieFaces.indexOf(1) === -1){
         this.setState(currentScore =>({
@@ -254,7 +239,7 @@ scoreAdvancedRule = (rule) =>{
         }))
       }
         break
-      case 6 : 
+      case 12 : 
       const allEqual = arr => arr.every( v => v === arr[0] )
         if(allEqual( dieFaces )){
           this.setState(currentScore =>({
@@ -262,7 +247,7 @@ scoreAdvancedRule = (rule) =>{
           }))
         }
         break
-      case 7 : 
+      case 13 : 
         for(let i = 0; i < dieFaces.length; i++){
           score += dieFaces[i]
         }
@@ -277,8 +262,7 @@ scoreAdvancedRule = (rule) =>{
 
   render(){
     const {dices} = this.state
-    const {basicRules} = this.state
-    const {advancedRules} = this.state
+    const {rules} = this.state
       return(
         <div className = "Yahtzee">
   
@@ -295,14 +279,10 @@ scoreAdvancedRule = (rule) =>{
             <h2>Game rules</h2>
 
             <Rules
-            basicRules = {basicRules} 
+            rules = {rules} 
             scoreBasicRule = {this.scoreBasicRule}
-            resetOnScore = {this.resetOnBasicScore}/>
-
-            <AdvancedRules
-            advancedRules = {advancedRules}
             scoreAdvancedRule = {this.scoreAdvancedRule}
-            resetOnScore = {this.resetOnAdvancedScore}/>
+            resetOnScore = {this.resetOnScore}/>
   
             <p className = "score">{`TOTAL SCORE: ${this.state.score}`}</p>
           </div>
