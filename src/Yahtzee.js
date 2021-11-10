@@ -35,7 +35,8 @@ class Yahtzee extends Component{
       ],
         gameStart : false,
         numRolls : 3,
-        score : 0
+        score : 0,
+        winner : false
       }
     }
 
