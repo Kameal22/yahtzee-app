@@ -203,9 +203,40 @@ scoreAdvancedRule = (rule) =>{
           score : currentScore.score + score
         }))
         break
-      case 3 : 
-        console.log(rule)
-        break
+      case 3 :
+      let fullHouseScore = 0;  
+      function hasDuplicates(array) {
+        return (new Set(array)).size !== array.length;
+    }
+      function find3s(array){
+        const count = {}
+        const result = []
+        let contains = false
+
+        array.forEach(item => {
+            if (count[item]) {
+              count[item] +=1
+              return
+            }
+            count[item] = 1
+        })
+
+        for (let prop in count){
+            if (count[prop] >=3){
+                result.push(prop)
+                contains = true
+            }
+        }
+        if(contains && hasDuplicates(dieFaces)){
+          fullHouseScore = 25
+        }
+        return result;
+        }
+        find3s(dieFaces)
+        this.setState(currentScore =>({
+          score : currentScore.score + fullHouseScore
+        }))
+      break
       case 4 : 
       const smallStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
         if(smallStraigth && dieFaces.indexOf(6) === -1){
@@ -238,7 +269,7 @@ scoreAdvancedRule = (rule) =>{
           score : currentScore.score + score
         }))
         break
-      default : console.log("test")            
+      default : console.log("yahtzee!")            
     }
   }
 }
