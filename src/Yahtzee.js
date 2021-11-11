@@ -90,14 +90,6 @@ scoreBasicRule = (id) =>{
   }))
 }}
 
-// scoreAdvancedRule = (id) =>{
-//   if(this.state.gameStart){
-//     let clickedRule = id
-    
-//     console.log(clickedRule)
-//   }
-// }
-
 resetOnScore = (id) =>{
   if(this.state.gameStart){
   let scoredRule = id
@@ -224,16 +216,16 @@ scoreAdvancedRule = (rule) =>{
         }))
       break
       case 10 : 
-      const smallStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
-        if(smallStraigth && dieFaces.indexOf(6) === -1){
-          this.setState(currentScore =>({
-            score : currentScore.score + 30
-          }))
-        }
+      dieFaces.sort();
+      if (/1234|2345|3456/.test(dieFaces.join("").replace(/(.)\1/,"$1"))) {
+        this.setState(currentScore =>({
+          score : currentScore.score + 30
+        }))
+      }
         break
       case 11 : 
       const largeStraigth = !dieFaces.some((v, i) => dieFaces.indexOf(v) < i);
-      if(largeStraigth && dieFaces.indexOf(1) === -1){
+      if(largeStraigth && (dieFaces.indexOf(1) === -1 || dieFaces.indexOf(6) === -1)){
         this.setState(currentScore =>({
           score : currentScore.score + 40
         }))
