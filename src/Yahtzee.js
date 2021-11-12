@@ -2,6 +2,7 @@ import './gameStyles/Yahtzee.css'
 import {Component} from 'react'
 import Dices from './gameDices/Dices';
 import Rules from './gameRules/Rules';
+import {findSameDices} from './Utills';
 
 class Yahtzee extends Component{
 
@@ -36,6 +37,11 @@ class Yahtzee extends Component{
         winner : false
       }
     }
+
+  checkForWinner = () =>{
+    console.log(Object.values(this.state.rules)
+    .every(scored => scored === true))
+  }
 
   chooseDie = (id) =>{
     if(this.state.gameStart){
@@ -115,80 +121,26 @@ scoreAdvancedRule = (rule) =>{
     const dieFaces = this.state.dices.map(dice =>{
       return(dice.face)
     })
-    let score = 0; 
     switch (rule){
       case 7 :
-          function findThrees(array){
-          const count = {}
-          const result = []
-          let contains = false
-
-          array.forEach(item => {
-              if (count[item]) {
-                count[item] +=1
-                return
-              }
-              count[item] = 1
-          })
-
-          for (let prop in count){
-              if (count[prop] >=3){
-                  result.push(prop)
-                  contains = true
-              }
-          }
-          if(contains){
-            for(let i = 0; i < dieFaces.length; i++){
-              score += dieFaces[i]
-            }
-          }
-          return result;
-          }
-          findThrees(dieFaces)
+          const score = findSameDices(dieFaces, 3)
           this.setState(currentScore =>({
             score : currentScore.score + score
           }))
         break
       case 8 : 
-      function findFours(array){
-        const count = {}
-        const result = []
-        let contains = false
-
-        array.forEach(item => {
-            if (count[item]) {
-              count[item] +=1
-              return
-            }
-            count[item] = 1
-        })
-
-        for (let prop in count){
-            if (count[prop] >=4){
-                result.push(prop)
-                contains = true
-            }
-        }
-        if(contains){
-          for(let i = 0; i < dieFaces.length; i++){
-            score += dieFaces[i]
-          }
-        }
-        return result;
-        }
-        findFours(dieFaces)
+      const fourScore = findSameDices(dieFaces, 4)
         this.setState(currentScore =>({
-          score : currentScore.score + score
+          score : currentScore.score + fourScore
         }))
         break
       case 9 :
       let fullHouseScore = 0;  
-      function hasDuplicates(array) {
+      const hasDuplicates = (array) => {
         return (new Set(array)).size !== array.length;
     }
-      function find3s(array){
+      const find3s = (array) =>{
         const count = {}
-        const result = []
         let contains = false
 
         array.forEach(item => {
@@ -201,14 +153,12 @@ scoreAdvancedRule = (rule) =>{
 
         for (let prop in count){
             if (count[prop] >=3){
-                result.push(prop)
                 contains = true
             }
         }
         if(contains && hasDuplicates(dieFaces)){
           fullHouseScore = 25
         }
-        return result;
         }
         find3s(dieFaces)
         this.setState(currentScore =>({
@@ -239,12 +189,13 @@ scoreAdvancedRule = (rule) =>{
           }))
         }
         break
-      case 13 : 
+      case 13 :
+        let chance = 0 
         for(let i = 0; i < dieFaces.length; i++){
-          score += dieFaces[i]
+          chance += dieFaces[i]
         }
         this.setState(currentScore =>({
-          score : currentScore.score + score
+          score : currentScore.score + chance
         }))
         break
       default : console.log("yahtzee!")            
