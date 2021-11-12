@@ -34,13 +34,17 @@ class Yahtzee extends Component{
         gameStart : false,
         numRolls : 3,
         score : 0,
+        winningCount : 0,
         winner : false
       }
     }
 
   checkForWinner = () =>{
-    console.log(Object.values(this.state.rules)
-    .every(scored => scored === true))
+    if(this.state.winningCount === 12){
+      this.setState({
+        winner : true
+      })
+    }
   }
 
   chooseDie = (id) =>{
@@ -94,6 +98,7 @@ scoreBasicRule = (id) =>{
   this.setState(currentScore =>({
     score : currentScore.score + scoreSum,
   }))
+
 }}
 
 resetOnScore = (id) =>{
@@ -109,11 +114,13 @@ resetOnScore = (id) =>{
   const dicesReset = this.state.dices.map(dice =>{
     return {...dice, face : this.getRandomDice(), isChosen : false}
   })
-    this.setState({
-      rules : rulesAfterScoring,
-      numRolls : 2,
-      dices : dicesReset,
-    })  
+  this.setState(currentWinningScore =>({
+    winningCount : currentWinningScore.winningCount + 1,
+    rules : rulesAfterScoring,
+    numRolls : 2,
+    dices : dicesReset,
+  }))
+  this.checkForWinner()
 }}
 
 scoreAdvancedRule = (rule) =>{
@@ -203,6 +210,17 @@ scoreAdvancedRule = (rule) =>{
   }
 }
 
+restartGame = () =>{
+  const restartedRule = this.state.rules.map(rule =>{
+    return{...rule, scored : false}
+  })
+  this.setState({
+    score : 0,
+    winner : false,
+    rules : restartedRule
+  })
+}
+
   render(){
     const {dices} = this.state
     const {rules} = this.state
@@ -210,12 +228,15 @@ scoreAdvancedRule = (rule) =>{
         <div className = "Yahtzee">
   
           <div className = "DieSection">
-            <h1>Yahtzee!</h1>
-            <Dices dicesToExport = {dices} chooseDie = {this.chooseDie} />
-  
+            <h1>{this.state.winner ? `Game over! Your score is ${this.state.score}` : 'Yahtzee!'}</h1>
+
+            {this.state.winner ? null : <Dices dicesToExport = {dices} chooseDie = {this.chooseDie} />}
+
+            {this.state.winner ? <button onClick = {this.restartGame}>Restart</button> : 
             <button disabled = {this.state.numRolls === 0}
             onClick = {() =>{this.setState({gameStart : true}); this.randomizeDice()}}>
-            {this.state.gameStart ? `${this.state.numRolls} rolls left` : 'Start The game'} </button> 
+            {this.state.gameStart ? `${this.state.numRolls} rolls left` : 'Start The game'} </button> }
+
           </div>
   
           <div className = "RulesSection">
