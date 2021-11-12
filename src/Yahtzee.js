@@ -217,7 +217,8 @@ restartGame = () =>{
   this.setState({
     score : 0,
     winner : false,
-    rules : restartedRule
+    winningCount : 0,
+    rules : restartedRule,
   })
 }
 
